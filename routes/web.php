@@ -3,14 +3,16 @@
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StripeWebhookController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentController;
 
-Route::get('/', [PaymentController::class, 'index'])->name('stripe.dashboard');
+Route::redirect('/', '/dashboard');
 Route::get('/dashboard', [PaymentController::class, 'index'])->name('stripe.dashboard');
 Route::get('/payment/{id}', [PaymentController::class, 'show'])->name('stripe.payment.show');
 Route::post('/payment/{id}/capture', [PaymentController::class, 'capture'])->name('stripe.payment.capture');
 Route::post('/payment/{id}/refund', [PaymentController::class, 'refund'])->name('stripe.payment.refund');
+Route::post('/stripe_webhooks', [StripeWebhookController::class, 'endpoint'])->withoutMiddleware(['web', 'auth'])->name('stripe.webhooks');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

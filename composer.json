@@ -9,6 +9,7 @@
         "firebase/php-jwt": "*",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
+        "opcodesio/log-viewer": "^3.10",
         "paragonie/sodium_compat": "*",
         "stripe/stripe-php": "^14.8"
     },
