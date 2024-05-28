@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\Request;
@@ -26,31 +27,38 @@ class MailController extends Controller
         $html = view('payment_success', compact('transaction_id'))->render();
         $session = Session::retrieve($transaction_id);
 //        $email = $session['customer_details']['email'];
-        $email = 'matteo.dinville@ynov.com';
-
-        $client = new Client();
-        $response = $client->post('https://api.brevo.com/v3/smtp/email', [
-            'headers' => [
-                'accept' => 'application/json',
-                'api-key' => config('app.brevo.api_key'),
-                'content-type' => 'application/json',
-            ],
-            'json' => [
-                'sender' => [
-                    'name' => 'Louisdev',
-                    'email' => 'louisreynard919@gmail.com'
+        try {
+            $client = new Client();
+            $response = $client->post('https://api.brevo.com/v3/smtp/email', [
+                'headers' => [
+                    'accept' => 'application/json',
+                    'api-key' => config('app.brevo.api_key'),
+                    'content-type' => 'application/json',
                 ],
-                'to' => [
-                    [
-                        'email' => 'matteo.dinville@ynov.com',
-                        'name' => 'Mattgones',
+                'json' => [
+                    'sender' => [
+                        'name' => 'Louisdev',
+                        'email' => 'louisreynard919@gmail.com'
                     ],
+                    'to' => [
+                        [
+                            'email' => 'matteo.dinville@ynov.com',
+                            'name' => 'Mattgones',
+                        ],
+                        [
+                            'email' => 'louisreynard919@gmail.com',
+                            'name' => 'Louisdev',
+                        ]
+                    ],
+                    'subject' => 'Confirmation de paiement',
+                    'htmlContent' => $html,
                 ],
-                'subject' => 'Confirmation de paiement',
-                'templateId' => 1,
-            ],
-        ]);
+            ]);
+        } catch (Throwable $e) {
+            dd($e);
+        }
 
-        dd($response, $email);
+        dd($response);
+
     }
 }
