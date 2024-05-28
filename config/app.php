@@ -128,4 +128,8 @@ return [
         'secret' => env('STRIPE_SECRET'),
         'public' => env('STRIPE_PUBLIC'),
     ],
+
+    'brevo' => [
+        'api_key' => env('BREVO_API_KEY'),
+    ],
 ];

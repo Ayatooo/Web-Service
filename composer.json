@@ -6,12 +6,19 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "contributte/mailing": "^0.6.0",
         "firebase/php-jwt": "*",
+        "hofmannsven/laravel-brevo": "^1.2",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
+        "nette/nette": "^3.2",
+        "okolaa/termiiphp": "^1.0",
         "opcodesio/log-viewer": "^3.10",
         "paragonie/sodium_compat": "*",
-        "stripe/stripe-php": "^14.8"
+        "sendinblue/api-v3-sdk": "^8.4",
+        "stripe/stripe-php": "^14.8",
+        "symfony/sendinblue-mailer": "^6.4",
+        "thepieterdc/mailinator_php": "^1.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

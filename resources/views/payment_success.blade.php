@@ -88,7 +88,7 @@
             <p class="text-gray-600">{{$transaction_id}} passé dans l’URL</p>
         </div>
 
-        <a href="{{route('email.send.confirmation')}}">
+        <a href="{{route('email.send.confirmation', ['transaction_id' => $transaction_id])}}">
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 Envoyer un email de confirmation
             </button>

@@ -34,7 +34,7 @@ Route::get('payment_failed', function () {
 });
 
 Route::group(['prefix' => 'mail'], function () {
-    Route::get('/send/confirmation', [MailController::class, 'sendConfirmation'])->name('email.send.confirmation');
+    Route::get('/send/confirmation/', [MailController::class, 'sendConfirmation'])->name('email.send.confirmation');
 });
 
 require __DIR__.'/auth.php';
