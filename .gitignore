@@ -28,3 +28,4 @@ public_html/storage
 public_html/hot
 storage/*.key
 /.vagrant
+public/vendor

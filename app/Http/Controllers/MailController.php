@@ -26,7 +26,7 @@ class MailController extends Controller
         $transaction_id = $request->transaction_id;
         $html = view('payment_success', compact('transaction_id'))->render();
         $session = Session::retrieve($transaction_id);
-//        $email = $session['customer_details']['email'];
+        $email = $session['customer_details']['email'];
         try {
             $client = new Client();
             $response = $client->post('https://api.brevo.com/v3/smtp/email', [
@@ -42,12 +42,8 @@ class MailController extends Controller
                     ],
                     'to' => [
                         [
-                            'email' => 'matteo.dinville@ynov.com',
-                            'name' => 'Mattgones',
-                        ],
-                        [
-                            'email' => 'louisreynard919@gmail.com',
-                            'name' => 'Louisdev',
+                            'email' => $email,
+                            'name' => 'Client',
                         ]
                     ],
                     'subject' => 'Confirmation de paiement',
