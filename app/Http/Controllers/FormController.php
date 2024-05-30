@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
 use Firebase\JWT\JWT;
+use Stripe\Exception\ApiErrorException;
 
 class FormController
 {
@@ -40,8 +41,10 @@ class FormController
     /**
      * Traite le formulaire
      * @param Request $request
+     * @return Redirector|Application|RedirectResponse
+     * @throws ApiErrorException
      */
-    public function submit(Request $request)
+    public function submit(Request $request): Redirector|Application|RedirectResponse
     {
 
         $key = 'mattgones';

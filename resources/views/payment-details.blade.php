@@ -25,12 +25,18 @@
                                     </span>
                                 @else
                                     <span
-                                        class="px-2 py-1 rounded-full text-xs {{ $payment->status == 'succeeded' ? 'bg-green-200 text-green-600' : 'bg-yellow-200 text-yellow-600' }}">
+                                        class="px-2 py-1 rounded-full text-xs {{ $payment->status === 'succeeded' ? 'bg-green-200 text-green-600' : 'bg-yellow-200 text-yellow-600' }}">
                                     {{ $payment->status }}
                                 </span>
                                 @endif
                             </p>
                             <p class="text-lg mb-6"><span class="font-semibold">Email:</span> {{ $email }}</p>
+                            @if($canRenew)
+                                <form id="renew-form" class="mb-3" action="{{ route('stripe.renew', $payment->id) }}" method="POST" onsubmit="return confirmRenewal()">
+                                    @csrf
+                                    <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700">Renouveler la caution</button>
+                                </form>
+                            @endif
                             <a href="{{ route('stripe.dashboard') }}"
                                class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Back to Dashboard</a>
                         </div>
@@ -39,4 +45,10 @@
             </div>
         </div>
     </x-app-layout>
+    <script>
+        function confirmRenewal() {
+            const confirmation = prompt("Veuillez saisir 'CONFIRMER' pour renouveler la caution:");
+            return confirmation === 'CONFIRMER';
+        }
+    </script>
 @endsection

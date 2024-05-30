@@ -13,12 +13,6 @@
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="p-6 bg-gray-50 text-gray-900">
                         <div class="container mx-auto">
-                            @if(session('success'))
-                                <div
-                                    class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
-                                    {{ session('success') }}
-                                </div>
-                            @endif
                             <h1 class="text-3xl font-bold mb-4">Dashboard</h1>
                             <div class="flex justify-between mb-6">
                                 <div class="w-1/2 bg-white rounded-lg shadow-md p-6 bg-green-100 ">

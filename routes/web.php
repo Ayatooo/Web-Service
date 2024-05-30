@@ -13,6 +13,7 @@ Route::get('/payment/{id}', [PaymentController::class, 'show'])->name('stripe.pa
 Route::post('/payment/{id}/capture', [PaymentController::class, 'capture'])->name('stripe.payment.capture');
 Route::post('/payment/{id}/refund', [PaymentController::class, 'refund'])->name('stripe.payment.refund');
 Route::post('/stripe_webhooks', [StripeWebhookController::class, 'endpoint'])->withoutMiddleware(['web', 'auth'])->name('stripe.webhooks');
+Route::post('/payment/renew/{id}', [PaymentController::class, 'renew'])->name('stripe.renew');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -27,11 +28,11 @@ Route::group(['prefix' => 'form', 'middleware' => 'auth'], function () {
 
 Route::get('payment_success', function () {
     return view('payment_success');
-});
+})->name('payment.success');
 
 Route::get('payment_failed', function () {
     return view('payment_failed');
-});
+})->name('payment.failed');
 
 Route::group(['prefix' => 'mail'], function () {
     Route::get('/send/confirmation/', [MailController::class, 'sendConfirmation'])->name('email.send.confirmation');

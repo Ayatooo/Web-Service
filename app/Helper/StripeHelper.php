@@ -7,6 +7,7 @@ use Firebase\JWT\Key;
 use Illuminate\Support\Facades\Log;
 use stdClass;
 use Stripe\Checkout\Session;
+use Stripe\Customer;
 use Stripe\Exception\ApiErrorException;
 use Stripe\Stripe;
 
@@ -23,6 +24,10 @@ class StripeHelper
     {
         Stripe::setApiKey(config('app.stripe.secret'));
         header('Content-Type: application/json');
+
+//        $customer = Customer::create([
+//            'description' => 'Customer for ' . $token,
+//        ]);
 
         $infos = [
             'submit_type' => 'pay',
@@ -48,6 +53,7 @@ class StripeHelper
             'metadata' => [
                 'token' => $token,
             ],
+            'customer_creation' => 'always',
             'success_url' => config('app.url') . '/payment_success?transaction_id={CHECKOUT_SESSION_ID}',
             'cancel_url' => config('app.url') . '/payment_failed'
         ];
@@ -59,6 +65,7 @@ class StripeHelper
 
         return $checkout_session->url;
     }
+
 
     /**
      * Gère la capture dy paiement
